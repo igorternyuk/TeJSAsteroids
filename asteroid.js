@@ -3,7 +3,7 @@ class Asteroid extends Entity{
 		super(x,y,radius);
 		this.velocity = p5.Vector.fromAngle(random(0,TWO_PI));
 		this.velocity.mult(random(Asteroid.minVelocity, Asteroid.maxVelocity));
-		this.rotationRate = this.radius / 1000 * PI;
+		this.rotationRate = this.radius / 5000 * PI;
 		this.isMoving = true;
 		this.isRotating = true;	
 		this.edgeNumber = floor(random(Asteroid.minEdges, Asteroid.maxEdges));
@@ -14,7 +14,7 @@ class Asteroid extends Entity{
 	}
 
 	isAlive(){
-		return this.radius >= Asteroid.minRadius;
+		return super.isAlive() && this.radius >= Asteroid.minRadius;
 	}
 
 	breakup(){

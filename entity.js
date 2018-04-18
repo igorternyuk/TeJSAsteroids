@@ -10,6 +10,14 @@ class Entity{
 		this.health = 100;
 	}
 
+	isOutOfBounds(){
+		return (this.position.x < -this.radius)
+			|| (this.position.x - this.radius  > FIELD_WIDTH)
+			|| (this.position.y < -this.radius)
+			|| (this.position.y - this.radius  > FIELD_HEIGHT);
+		
+	}
+
 	checkBounds(){
 		if(this.position.x < -this.radius){
 			this.position.x = FIELD_WIDTH + this.radius;
@@ -25,6 +33,10 @@ class Entity{
 
 	isAlive(){
 		return this.health > 0;
+	}
+
+	destroy(){
+		this.health = 0;
 	}
 
 	collides(other){

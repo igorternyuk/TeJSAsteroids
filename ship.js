@@ -3,7 +3,16 @@ class Ship extends Entity{
 		super(x,y,radius);
 		this.isBoosting = false;
 		this.thrust = p5.Vector.fromAngle(this.heading);
-		this.friction = 0.99;		
+		this.friction = 0.99;
+		this.lives = 5;		
+	}
+
+	isAlive(){
+		return this.lives > 0;
+	}
+
+	hit(){
+		--this.lives;
 	}
 
 	setRotation(rate){
@@ -38,11 +47,13 @@ class Ship extends Entity{
 		this.velocity.y = 0;
 	}
 
+	fire(){
+		entities.push(new Bullet());
+	}
+
 	update(){
 		if(this.isBoosting){
 			this.velocity.add(this.thrust);
-			console.log("vel = ", this.velocity);
-			console.log("pos = ", this.position);
 		}
 		this.velocity.mult(this.friction);
 		super.update();
