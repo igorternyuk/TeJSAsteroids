@@ -1,15 +1,28 @@
 const FIELD_WIDTH = 1200;
 const FIELD_HEIGHT = 500;
+const NUM_ASTEROIDS = 10;
 var isGamePaused = false;
 var isGameOver = false;
 var GameState = Object.freeze({ PLAY: 0, VICTORY: 1, DEFEAT: 2 });
 var gameState = GameState.PLAY;
 var ship;
+var entities = [];
 
 function setup() {
   createCanvas(FIELD_WIDTH, FIELD_HEIGHT);
   frameRate(30);
   ship = new Ship(FIELD_WIDTH / 2, FIELD_HEIGHT / 2, 20);
+  entities.push(ship);
+  createAsteroids();
+}
+
+function createAsteroids(){
+	for(let i = 0; i < NUM_ASTEROIDS; ++i){
+		randX = random(0,FIELD_WIDTH);
+		randY = random(0,FIELD_HEIGHT);
+		randRadius = floor(random(Asteroid.minRadius, Asteroid.maxRadius));
+		entities.push(new Asteroid(randX, randY, randRadius));
+	}
 }
 
 
@@ -50,19 +63,14 @@ function keyReleased(){
 	}
 }
 
-function updatePhase(){
-	ship.update();
-}
-
-function renderPhase(){
-	ship.render();
-}
-
 //main loop
 function draw() {
-	updatePhase();
 	background(0);
-	renderPhase();
+	for(let i = 0; i < entities.length; ++i){
+		entities[i].update();
+		entities[i].render();
+	}
+
 }
 
 function renderScore(){

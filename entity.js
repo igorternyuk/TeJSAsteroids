@@ -7,6 +7,7 @@ class Entity{
 		this.isMoving = false;
 		this.isRotating = false;
 		this.radius = radius;
+		this.health = 100;
 	}
 
 	checkBounds(){
@@ -20,6 +21,10 @@ class Entity{
 		} else if(this.position.y - this.radius  > FIELD_HEIGHT){
 			this.position.y = -this.radius;
 		}
+	}
+
+	isAlive(){
+		return this.health > 0;
 	}
 
 	collides(other){
